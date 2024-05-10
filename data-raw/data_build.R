@@ -35,7 +35,7 @@ EQUIVALENCE_TABLES = list(
 # 2-6 digit code files =========================================================
 
 # 2022
-nc2022 = CODE_TABLES$`2022` %>%
+naics_2022 = CODE_TABLES$`2022` %>%
   readxl::read_xlsx() %>%
   .[, c(2,3)] %>%
   data.table::setDT() %>%
@@ -46,7 +46,7 @@ nc2022 = CODE_TABLES$`2022` %>%
   .[!is.na(code)]
 
 # 2017
-nc2017 = CODE_TABLES$`2017` %>%
+naics_2017 = CODE_TABLES$`2017` %>%
   readxl::read_xlsx() %>%
   .[, c(2,3)] %>%
   data.table::setDT() %>%
@@ -57,7 +57,7 @@ nc2017 = CODE_TABLES$`2017` %>%
   .[!is.na(code)]
 
 # 2012
-nc2012 = CODE_TABLES$`2012` %>%
+naics_2012 = CODE_TABLES$`2012` %>%
   readxl::read_xls() %>%
   .[, c(2,3)] %>%
   data.table::setDT() %>%
@@ -68,7 +68,7 @@ nc2012 = CODE_TABLES$`2012` %>%
   .[!is.na(code)]
 
 # 2007
-nc2007 = CODE_TABLES$`2007` %>%
+naics_2007 = CODE_TABLES$`2007` %>%
   readxl::read_xls() %>%
   .[, c(2,3)] %>%
   data.table::setDT() %>%
@@ -79,7 +79,7 @@ nc2007 = CODE_TABLES$`2007` %>%
   .[!is.na(code)]
 
 # 2002
-nc2002 = CODE_TABLES$`2002` %>%
+naics_2002 = CODE_TABLES$`2002` %>%
   readLines() %>%
   .[5:length(.)] %>%
   data.table::data.table() %>%
@@ -190,9 +190,10 @@ equiv = e1997_2002 %>%
 
 # Save data objects ============================================================
 
-nc2022
-nc2017
-nc2007
-nc2002
-equiv
+usethis::use_data(naics_2022)
+usethis::use_data(naics_2017)
+usethis::use_data(naics_2012)
+usethis::use_data(naics_2007)
+usethis::use_data(naics_2002)
+usethis::use_data(equiv)
 
