@@ -157,7 +157,7 @@ e1997_2002 = EQUIVALENCE_TABLES$`1997_2002` %>%
   .[, lapply(.SD, as.character)]
 
 # Merge up to build complete table
-equiv = e1997_2002 %>%
+naics_xwalk = e1997_2002 %>%
   data.table::merge.data.table(
     x = .,
     y = e2002_2007,
@@ -196,5 +196,5 @@ usethis::use_data(naics_2017)
 usethis::use_data(naics_2012)
 usethis::use_data(naics_2007)
 usethis::use_data(naics_2002)
-usethis::use_data(equiv)
+usethis::use_data(naics_xwalk)
 
