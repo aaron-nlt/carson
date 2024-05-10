@@ -2,6 +2,20 @@ library(data.table)
 library(magrittr)
 library(readxl)
 
+# This works for files downloaded from here effective 5/10/2024:
+# https://www.census.gov/naics/?68967
+
+# For code tables, follow the "Downloadable Files" link, and download all files
+# labeled "2-6 digit {YEAR} Code Files"
+
+# For equivalence tables, follow the "Concordances" link, and download all files
+# labeled "{YEAR} NAICS to {YEAR+5} NAICS"
+
+# Download them locally (excels can't be read from web, apparently), then add
+# the files paths to the respective list  components. The script will then take
+# care of the rest, provided that file formats haven't been changed since
+# writing this script.
+
 CODE_TABLES = list(
   "2022" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\codes\2-6 digit_2022_Codes.xlsx)",
   "2017" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\codes\2-6 digit_2017_Codes.xlsx)",
@@ -11,7 +25,11 @@ CODE_TABLES = list(
 )
 
 EQUIVALENCE_TABLES = list(
-
+  "2017_2022" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\equivalence\2017_to_2022_NAICS.xlsx)",
+  "2012_2017" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\equivalence\2012_to_2017_NAICS.xlsx)",
+  "2007_2012" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\equivalence\2007_to_2012_NAICS.xls)",
+  "2002_2007" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\equivalence\2002_to_2007_NAICS.xls)",
+  "1997_2002" = r"(C:\Users\aaron.weinstock\Downloads\naics_tables\equivalence\1997_NAICS_to_2002_NAICS.xls)"
 )
 
 # 2-6 digit code files =========================================================
@@ -80,3 +98,101 @@ nc2002 = CODE_TABLES$`2002` %>%
   )] %>%
   .[, .(code, description)] %>%
   .[!is.na(code)]
+
+# Equivalence tables ===========================================================
+
+# 2017-2022
+e2017_2022 = EQUIVALENCE_TABLES$`2017_2022` %>%
+  readxl::read_xlsx() %>%
+  .[3:nrow(.), c(1,3)] %>%
+  data.table::setDT() %>%
+  setnames(
+    old = names(.),
+    new = c("code_2017","code_2022")
+  )
+
+# 2012-2017
+e2012_2017 = EQUIVALENCE_TABLES$`2012_2017` %>%
+  readxl::read_xlsx() %>%
+  .[3:nrow(.), c(1,3)] %>%
+  data.table::setDT() %>%
+  setnames(
+    old = names(.),
+    new = c("code_2012","code_2017")
+  )
+
+# 2007-2012
+e2007_2012 = EQUIVALENCE_TABLES$`2007_2012` %>%
+  readxl::read_xls() %>%
+  .[3:nrow(.), c(1,3)] %>%
+  data.table::setDT() %>%
+  setnames(
+    old = names(.),
+    new = c("code_2007","code_2012")
+  )
+
+# 2002-2007
+e2002_2007 = EQUIVALENCE_TABLES$`2002_2007` %>%
+  readxl::read_xls() %>%
+  .[3:nrow(.), c(1,3)] %>%
+  data.table::setDT() %>%
+  setnames(
+    old = names(.),
+    new = c("code_2002","code_2007")
+  )
+
+# 1997-2002
+e1997_2002 = EQUIVALENCE_TABLES$`1997_2002` %>%
+  readxl::read_xls(
+    sheet = "Concordance 23 US NoD"
+  ) %>%
+  .[, c(1,3)] %>%
+  data.table::setDT() %>%
+  setnames(
+    old = names(.),
+    new = c("code_1997","code_2002")
+  ) %>%
+  .[!is.na(code_1997)] %>%
+  .[, lapply(.SD, as.character)]
+
+# Merge up to build complete table
+equiv = e1997_2002 %>%
+  data.table::merge.data.table(
+    x = .,
+    y = e2002_2007,
+    by = "code_2002",
+    all.x = TRUE,
+    all.y = TRUE
+  ) %>%
+  data.table::merge.data.table(
+    x = .,
+    y = e2007_2012,
+    by = "code_2007",
+    all.x = TRUE,
+    all.y = TRUE
+  ) %>%
+  data.table::merge.data.table(
+    x = .,
+    y = e2012_2017,
+    by = "code_2012",
+    all.x = TRUE,
+    all.y = TRUE
+  ) %>%
+  data.table::merge.data.table(
+    x = .,
+    y = e2017_2022,
+    by = "code_2017",
+    all.x = TRUE,
+    all.y = TRUE
+  ) %>%
+  .[, c(paste0("code_", seq(1997,2022,by=5))), with=FALSE] %>%
+  data.table::setkey(NULL)
+
+# Save data objects ============================================================
+
+nc2022
+nc2017
+nc2007
+nc2002
+equiv
+
