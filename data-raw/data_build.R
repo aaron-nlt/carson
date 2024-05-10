@@ -1,6 +1,7 @@
 library(data.table)
 library(magrittr)
 library(readxl)
+library(usethis)
 
 # This works for files downloaded from here effective 5/10/2024:
 # https://www.census.gov/naics/?68967
