@@ -1,0 +1,14 @@
+Package: lance
+Title: Build NAICS Code Equivalences
+Version: 0.0.0.9000
+Authors@R: 
+    person("Aaron", "Weinstock", "aaron.weinstock@nltgis.com", role = c("aut", "cre"))
+Description: Identify equivalences of NAICS codes across various releases. New 
+    NAICS codes have been released every 5 years since 1997, and the US Census
+    maintains records of code descriptions by year and crosswalk tables between
+    successive years. This package automates lookups in those tables to build
+    equivalences across different releases.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
