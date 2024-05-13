@@ -2,7 +2,7 @@ Package: lance
 Title: Build NAICS Code Equivalences
 Version: 0.0.0.9000
 Authors@R: 
-    person("Aaron", "Weinstock", "aaron.weinstock@nltgis.com", role = c("aut", "cre"))
+    person("Aaron", "Weinstock", email="aaron.weinstock@nltgis.com", role = c("aut","cre"))
 Description: Identify equivalences of NAICS codes across various releases. New 
     NAICS codes have been released every 5 years since 1997, and the US Census
     maintains records of code descriptions by year and crosswalk tables between
@@ -15,3 +15,7 @@ RoxygenNote: 7.3.1
 Depends: 
     R (>= 2.10)
 LazyData: true
+Imports: 
+    data.table,
+    magrittr,
+    stringr
