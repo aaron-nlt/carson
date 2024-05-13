@@ -8,15 +8,15 @@ library(stringr)
 #' This function matches NAICS codes in a "from_year" to corresponding codes
 #' in a "to_year". The from and to years are matched to releases of NAICS based
 #' on the most current NAICS release during each year. New NAICS have been
-#' published every 5 years from 1997 to 2022, so setting from year = 2006 and
-#' to year = 2011 will, for example, convert 2002 NAICS to 2007 NAICS. All
+#' published every 5 years from 1997 to 2022, so setting from_year = 2006 and
+#' to_year = 2011 will, for example, convert 2002 NAICS to 2007 NAICS. All
 #' codes to convert must be present in the NAICS release corresponding to the
 #' from year. Any codes that are not found in the from-year release will be
 #' identified in a warning before return.
 #'
 #' @param codes A character vector of NAICS codes to be converted. All codes
 #' must be valid NAICS codes (2 and 6 digits) present in the release
-#' corresponding to `from_year` (see below)
+#' corresponding to `from_year` (see below).
 #' @param from_year The year/release to convert from.
 #' @param to_year The year/release to convert to.
 #'
@@ -36,10 +36,10 @@ library(stringr)
 #'
 #' @examples
 #' # Convert 3 codes from 2002 to 2022
-#' convert(c("32","451","926140"), 2002, 2022)
+#' convert_naics(c("32","451","926140"), 2002, 2022)
 #' # Because of release schedule, the following is equivalent to the above
-#' convert(c("32","451","926140"), 2005, 2024)
-convert = function(codes, from_year, to_year){
+#' convert_naics(c("32","451","926140"), 2005, 2024)
+convert_naics = function(codes, from_year, to_year){
   # Check format of code: must be 2-6 digit numeric
   if(is.numeric(codes)){
     codes = as.character(codes)
