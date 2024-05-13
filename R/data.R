@@ -1,3 +1,5 @@
+# NAICS tables =================================================================
+
 #' NAICS 2022 2-6 digit codes
 #'
 #' 2-6 digit industry codes and descriptions for NAICS 2022.
@@ -81,7 +83,65 @@
 #' @source Concordance tables available at <https://www.census.gov/naics/?48967>
 "naics_xwalk"
 
+# SOC tables ===================================================================
 
+#' SOC 2018 codes
+#'
+#' Occupation codes and definitions for SOC 2018.
+#'
+#' @format ## `soc_2018`
+#' A data frame with 1,447 rows and 4 columns:
+#' \describe{
+#'   \item{group}{Level of occupation (major, minor, broad, detailed)}
+#'   \item{code}{2018 SOC code}
+#'   \item{title}{Name of the occupation}
+#'   \item{definition}{Description of the occupation}
+#'   ...
+#' }
+#' @source <https://www.bls.gov/soc/2018/soc_2018_definitions.xlsx>
+"soc_2018"
 
+#' SOC 2010 codes
+#'
+#' Occupation codes and definitions for SOC 2010.
+#'
+#' @format ## `soc_2010`
+#' A data frame with 840 rows and 3 columns:
+#' \describe{
+#'   \item{code}{2010 SOC code}
+#'   \item{title}{Name of the occupation}
+#'   \item{definition}{Description of the occupation}
+#'   ...
+#' }
+#' @source <https://www.bls.gov/soc/soc_2010_definitions.xls>
+"soc_2010"
+
+#' SOC 2000 codes
+#'
+#' Occupation codes and definitions for SOC 2000.
+#'
+#' @format ## `soc_2000`
+#' A data frame with 821 rows and 3 columns:
+#' \describe{
+#'   \item{code}{2000 SOC code}
+#'   \item{title}{Name of the occupation}
+#'   \item{definition}{Description of the occupation}
+#'   ...
+#' }
+#' @source <https://www.bls.gov/soc/2000/soc-definitions-2000.xlsx>
+"soc_2000"
+
+#' SOC 2000-2018 code crosswalk
+#'
+#' Full crosswalk for codes for all SOC releases.
+#'
+#' @format ## `soc_xwalk`
+#' A data frame with 920 rows and 3 columns:
+#' \describe{
+#'   \item{code_YYYY}{SOC code in year YYYY}
+#'   ...
+#' }
+#' @source Crosswalk tables available at <https://www.bls.gov/soc>
+"soc_xwalk"
 
 
