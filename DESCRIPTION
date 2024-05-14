@@ -1,13 +1,15 @@
-Package: lance
-Title: Build NAICS Code Equivalences
+Package: carson
+Title: Crosswalks Aligning Releases of SOC Or NAICS
 Version: 0.0.0.9000
 Authors@R: 
     person("Aaron", "Weinstock", email="aaron.weinstock@nltgis.com", role = c("aut","cre"))
-Description: Identify equivalences of NAICS codes across various releases. New 
-    NAICS codes have been released every 5 years since 1997, and the US Census
-    maintains records of code descriptions by year and crosswalk tables between
-    successive years. This package automates lookups in those tables to build
-    equivalences across different releases.
+Description: Provide crosswalks to simplify the temporal alignment of SOC and
+    NAICS codes. SOC codes have been released in 2000, 2010, and 2018, and NAICS
+    codes have been released every 5 years since 1997. BLS and Census (for SOC
+    and NAICS, respectively) maintain reference data on code descriptions by 
+    release and concordances tables between successive releases. This package 
+    provides these tables as data objects, and automates conversions between 
+    years using the crosswalks.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
